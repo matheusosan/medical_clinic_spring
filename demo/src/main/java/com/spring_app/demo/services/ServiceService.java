@@ -2,6 +2,7 @@ package com.spring_app.demo.services;
 
 import com.spring_app.demo.dtos.ServiceRequestDTO;
 import com.spring_app.demo.entities.Service;
+import com.spring_app.demo.exceptions.ClientExceptions.ClientNotFoundException;
 import com.spring_app.demo.repositories.ServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,8 +18,11 @@ public class ServiceService {
         return serviceRepository.findAll();
     }
 
-    public Service createService(ServiceRequestDTO dto) {
+    public Service findById(Long id) {
+        return serviceRepository.findById(id).orElseThrow(() -> new RuntimeException("Cliente não encontrado."));
+    }
 
+    public Service createService(ServiceRequestDTO dto) {
         Service newService = new Service();
 
         newService.setName(dto.getName());
