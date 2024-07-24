@@ -14,6 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/client")
+@CrossOrigin(value = "*")
 public class ClientController {
 
     @Autowired
@@ -35,9 +36,9 @@ public class ClientController {
 
     @GetMapping("/cpf/{cpf}")
     ResponseEntity<Client> findByCPF(@PathVariable String cpf) {
-        Optional<Client> client = clientService.findClientByCPF(cpf);
+        Client client = clientService.findClientByCPF(cpf);
 
-        return ResponseEntity.ok(client.get());
+        return ResponseEntity.ok(client);
     }
 
 
