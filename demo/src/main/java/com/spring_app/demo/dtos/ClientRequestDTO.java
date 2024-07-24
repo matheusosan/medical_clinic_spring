@@ -1,11 +1,14 @@
 package com.spring_app.demo.dtos;
 
+import java.time.LocalDate;
+
 public class ClientRequestDTO {
 
     String name;
     String cpf;
     String email;
     String phoneNumber;
+    LocalDate birthDate;
 
     public String getName() {
         return name;
@@ -21,5 +24,9 @@ public class ClientRequestDTO {
 
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
     }
 }
