@@ -26,11 +26,12 @@ public class ClientService {
             throw new ClientAlreadyExistsException("Usuário já cadastrado no sistema!");
         }
 
-        Client client = new Client.Builder()
-                .withCpf(dto.getCpf())
-                .withEmail(dto.getEmail())
-                .withName(dto.getName())
-                .withPhoneNumber(dto.getPhoneNumber()).build();
+        Client client = new Client();
+        client.setEmail(dto.getEmail());
+        client.setName(dto.getName());
+        client.setCpf(dto.getCpf());
+        client.setBirthDate(dto.getBirthDate());
+        client.setPhoneNumber(dto.getPhoneNumber());
 
         return clientRepository.save(client);
     }
@@ -39,19 +40,12 @@ public class ClientService {
         return clientRepository.findAll();
     };
 
-    public Optional<Client> findClientByCPF(String cpf) {
-        Optional<Client> client = clientRepository.findByCpf(cpf);
-
-        if(client.isEmpty()) {
-            throw new ClientNotFoundException( "Usuário não encontrado com o CPF fornecido!");
-        }
-
-        return client;
+    public Client findClientByCPF(String cpf) {
+        return clientRepository.findByCpf(cpf).orElseThrow(() -> new ClientNotFoundException("Usuário não encontrado com o CPF fornecido!"));
     };
 
-
-    ResponseEntity<Void> updateClient() {
-        return null;
+    public Client findById(long id) {
+        return clientRepository.findById(id).orElseThrow(() -> new ClientNotFoundException("Cliente não encontrado."));
     }
 
 }
