@@ -2,6 +2,8 @@ package com.spring_app.demo.entities;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "tb_client")
 public class Client {
@@ -22,31 +24,8 @@ public class Client {
     @Column(name = "tb_cpf", unique = true)
     String cpf;
 
-    public Client(String cpf, String phone_number, String email, String name) {
-        this.cpf = cpf;
-        this.phoneNumber = phone_number;
-        this.email = email;
-        this.name = name;
-    }
-
-    public Client() {
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getName() {
-        return name;
-    }
+    @Column(name = "birthDate")
+    LocalDate birthDate;
 
     public Long getId() {
         return id;
@@ -56,55 +35,43 @@ public class Client {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getCpf() {
+        return cpf;
     }
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
-    public static class Builder {
-        private String name;
-        private String email;
-        private String phoneNumber;
-        private String cpf;
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
 
-        public Builder withName(String name) {
-            this.name = name;
-            return this;
-        }
-
-        public Builder withEmail(String email) {
-            this.email = email;
-            return this;
-        }
-
-        public Builder withPhoneNumber(String phoneNumber) {
-            this.phoneNumber = phoneNumber;
-            return this;
-        }
-
-        public Builder withCpf(String cpf) {
-            this.cpf = cpf;
-            return this;
-        }
-
-        public Client build() {
-            Client client = new Client();
-            client.setName(this.name);
-            client.setEmail(this.email);
-            client.setPhoneNumber(this.phoneNumber);
-            client.setCpf(this.cpf);
-            return client;
-        }
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
     }
 }
