@@ -20,10 +20,12 @@ public class AppointmentService {
 
     @Autowired
     private AppointmentRepository appointmentRepository;
+
     @Autowired
-    private ServiceRepository serviceRepository;
+    private ClientService clientService;
+
     @Autowired
-    private ClientRepository clientRepository;
+    private ServiceService serviceService;
 
 
     public List<Appointment> getAllAppointments() {
@@ -43,16 +45,12 @@ public class AppointmentService {
             throw new OutOfWorkingPeriodException("Horário agendado está fora do horário de funcionamento!");
         }
 
-        Optional<Client> client = clientRepository.findById(dto.getClientId());
-        Optional<Service> service = serviceRepository.findById(dto.getServiceId());
-
-        if(client.isEmpty() || service.isEmpty()) {
-            return null;
-        }
+        Client client = clientService.findById(dto.getClientId());
+        Service service = serviceService.findById(dto.getServiceId());
 
         Appointment newAppointment = new Appointment();
-        newAppointment.setService(service.get());
-        newAppointment.setClient(client.get());
+        newAppointment.setService(service);
+        newAppointment.setClient(client);
         newAppointment.setDataAgendada(dto.getDataAgendada());
 
        return appointmentRepository.save(newAppointment);
