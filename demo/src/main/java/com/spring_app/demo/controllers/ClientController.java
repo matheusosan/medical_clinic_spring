@@ -14,19 +14,19 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/client")
-@CrossOrigin(value = "*")
+@CrossOrigin(value = "http://localhost:5173")
 public class ClientController {
 
     @Autowired
     private ClientService clientService;
 
     @PostMapping()
-    ResponseEntity<Client> createClient(@RequestBody ClientRequestDTO dto) {
+    ResponseEntity<String> createClient(@RequestBody ClientRequestDTO dto) {
         Client newClient = clientService.createClient(dto);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newClient).toUri();
 
-        return ResponseEntity.created(location).body(newClient);
+        return ResponseEntity.created(location).body("Usuário criado com sucesso!");
     }
 
     @GetMapping()
